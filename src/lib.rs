@@ -60,7 +60,7 @@ unsafe fn source_slice<'src, 'frame>(
     data: &'src [u8],
     frame_recv: &'frame ffi::mp3dec_frame_info_t,
 ) -> &'src [u8] {
-    data.get_unchecked(frame_recv.frame_offset as usize..frame_recv.frame_bytes as usize)
+    data.get_unchecked(frame_recv.frame_offset as usize..data.len().min(frame_recv.frame_bytes as usize))
 }
 
 // Note: This is redefined because rustdoc is annoying, and will output:
